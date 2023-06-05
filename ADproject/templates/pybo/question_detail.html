@@ -74,13 +74,19 @@
                     {% endfor %}
                     </div>
                     {% endif %}
-                    <div>
+                    <div class="d-flex justify-content-between">
                         <a href="{% url 'pybo:comment_create_question' question.id  %}"
                            class="small"><small>댓글 추가 ..</small></a>
+                        <!-- 댓글 정렬 -->
+                        <select class="so ml-auto">
+                            <option value="recent" {% if so == 'recent' %}selected{% endif %}>최신순</option>
+                            <option value="recommend" {% if so == 'recommend' %}selected{% endif %}>추천순</option>
+                        </select>
                     </div>
                     <!-- 질문 댓글 End -->
+
                     <!-- 페이징처리 시작 -->
-                    <ul class="pagination justify-content-center small">
+                    <ul class="pagination justify-content-center ">
                         <!-- 이전페이지 -->
                         {% if comment_list.has_previous %}
                         <li class="page-item">
