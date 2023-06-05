@@ -52,6 +52,9 @@
                     {% for comment in question.comment_set.all %}
                         <a name="comment_{{ comment.id }}"></a>
                         <div class="comment py-2 text-muted">
+                            {% if comment.voter.all.count > 0 %} <!-- 질문 댓글 추천 수 표기 -->
+                            <span class="badge badge-warning px-2 py-1">{{ comment.voter.all.count }}</span>
+                            {% endif %}
                             <span style="white-space: pre-line;">{{ comment.content }}</span>
                             <span>
                                 - {{ comment.author }}, {{ comment.create_date }}
@@ -63,6 +66,9 @@
                             <a href="{% url 'pybo:comment_modify_question' comment.id  %}" class="small">수정</a>,
                             <a href="#" class="small delete"
                                data-uri="{% url 'pybo:comment_delete_question' comment.id  %}">삭제</a>
+                            {% else %}
+                            <a href="#" data-uri="{% url 'pybo:vote_comment' comment.id  %}"
+                                class="small recommend">추천</a>
                             {% endif %}
                         </div>
                     {% endfor %}
@@ -119,6 +125,9 @@
                     {% for comment in answer.comment_set.all %}
                         <a name="comment_{{ comment.id }}"></a>
                         <div class="comment py-2 text-muted">
+                            {% if comment.voter.all.count > 0 %} <!-- 답변 댓글 추천 수 표기 -->
+                            <span class="badge badge-warning px-2 py-1">{{ comment.voter.all.count }}</span>
+                            {% endif %}
                             <span style="white-space: pre-line;">{{ comment.content }}</span>
                             <span>
                                 - {{ comment.author }}, {{ comment.create_date }}
@@ -126,10 +135,16 @@
                                 (수정횟수:{{ comment.modify_count }} / 수정:{{ comment.modify_date }})
                                 {% endif %}
                             </span>
+                            {% if comment.voter.all.count > 0 %}
+                            <span class="badge badge-warning px-2 py-1">{{ comment.voter.all.count }}</span>
+                            {% endif %}
                             {% if request.user == comment.author %}
                             <a href="{% url 'pybo:comment_modify_answer' comment.id  %}" class="small">수정</a>,
                             <a href="#" class="small delete"
                                data-uri="{% url 'pybo:comment_delete_answer' comment.id  %}">삭제</a>
+                            {% else %}
+                            <a href="#" data-uri="{% url 'pybo:vote_comment' comment.id  %}"
+                                class="small recommend">추천</a>
                             {% endif %}
                         </div>
                     {% endfor %}
