@@ -68,7 +68,7 @@
                                data-uri="{% url 'pybo:comment_delete_question' comment.id  %}">삭제</a>
                             {% else %}
                             <a href="#" data-uri="{% url 'pybo:vote_comment' comment.id  %}"
-                                class="small recommend">추천</a>
+                                class="small recommend">추천</a> <!-- 질문 댓글 추천 버튼 -->
                             {% endif %}
                         </div>
                     {% endfor %}
@@ -144,7 +144,7 @@
                                data-uri="{% url 'pybo:comment_delete_answer' comment.id  %}">삭제</a>
                             {% else %}
                             <a href="#" data-uri="{% url 'pybo:vote_comment' comment.id  %}"
-                                class="small recommend">추천</a>
+                                class="small recommend">추천</a> <!-- 답변 댓글 추천 버튼 -->
                             {% endif %}
                         </div>
                     {% endfor %}
