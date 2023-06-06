@@ -51,6 +51,8 @@ def detail(request, question_id):
     # 정렬
     if so == 'recommend':
         comment_list = question.comment_set.annotate(num_voter=Count('voter')).order_by('-num_voter', '-create_date')
+    elif so == 'oldest':  # oldest
+        comment_list = question.comment_set.order_by('create_date')
     else:  # recent
         comment_list = question.comment_set.order_by('-create_date')
 
